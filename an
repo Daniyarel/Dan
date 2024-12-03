@@ -1,0 +1,108 @@
+package kz.kaznu.daniyar.raylist;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class EmployeeUtils {
+
+    public static ArrayList<Integer> createRange(int min, int max) {
+        ArrayList<Integer> range = new ArrayList<>();
+        for (int i = min; i <= max; i++) {
+            range.add(i);
+        }
+        return range;
+    }
+
+    public static int sumGreaterThanFive(List<Integer> numbers) {
+        int sum = 0;
+        for (int number : numbers) {
+            if (number > 5) {
+                sum += number;
+            }
+        }
+        return sum;
+    }
+
+    public static void replaceAll(List<Integer> list, int value) {
+        for (int i = 0; i < list.size(); i++) {
+            list.set(i, value);
+        }
+    }
+
+    public static void increaseEach(List<Integer> list, int increment) {
+        for (int i = 0; i < list.size(); i++) {
+            list.set(i, list.get(i) + increment);
+        }
+    }
+
+    public static List<String> getEmployeeNames(List<Employee> employees) {
+        List<String> names = new ArrayList<>();
+        for (Employee employee : employees) {
+            names.add(employee.getName());
+        }
+        return names;
+    }
+
+    public static List<Employee> getEmployeesOlderThan(List<Employee> employees, int age) {
+        List<Employee> result = new ArrayList<>();
+        for (Employee employee : employees) {
+            if (employee.getAge() >= age) {
+                result.add(employee);
+            }
+        }
+        return result;
+    }
+
+    public static boolean isAverageAgeAbove(List<Employee> employees, double minAverageAge) {
+        if (employees.isEmpty()) return false;
+        int totalAge = 0;
+        for (Employee employee : employees) {
+            totalAge += employee.getAge();
+        }
+        double averageAge = (double) totalAge / employees.size();
+        return averageAge > minAverageAge;
+    }
+
+    public static Employee getYoungestEmployee(List<Employee> employees) {
+        if (employees.isEmpty()) return null;
+        Employee youngest = employees.get(0);
+        for (Employee employee : employees) {
+            if (employee.getAge() < youngest.getAge()) {
+                youngest = employee;
+            }
+        }
+        return youngest;
+    }
+
+    public static void main(String[] args) {
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee("Alice", 30));
+        employees.add(new Employee("Bob", 22));
+        employees.add(new Employee("Charlie", 25));
+        
+        ArrayList<Integer> range = createRange(1, 10);
+        System.out.println("Range: " + range);
+
+        int sum = sumGreaterThanFive(List.of(1, 2, 3, 6, 7, 8));
+        System.out.println("Sum of numbers > 5: " + sum);
+
+        List<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5));
+        replaceAll(numbers, 10);
+        System.out.println("Replaced numbers: " + numbers);
+
+        increaseEach(numbers, 5);
+        System.out.println("Increased numbers: " + numbers);
+
+        List<String> names = getEmployeeNames(employees);
+        System.out.println("Employee names: " + names);
+
+        List<Employee> olderEmployees = getEmployeesOlderThan(employees, 24);
+        System.out.println("Employees older than 24: " + getEmployeeNames(olderEmployees));
+
+        boolean isAboveAverage = isAverageAgeAbove(employees, 25);
+        System.out.println("Average age > 25: " + isAboveAverage);
+
+        Employee youngest = getYoungestEmployee(employees);
+        System.out.println("Youngest employee: " + youngest.getName() + ", Age: " + youngest.getAge());
+    }
+}
